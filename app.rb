@@ -1,6 +1,9 @@
 require 'sinatra'
 require 'ap'
 require "open-uri"
+require 'logger'
+
+set :logger, Logger.new(STDOUT)
 
 DOWNLOAD_DIR = "/tmp/dokku-vendor/"
 VENDOR_URL = "https://s3-external-1.amazonaws.com/"
@@ -27,7 +30,7 @@ def get_file(buildpack, file_path)
   if File.exists?(absolute_file_path)
     return absolute_file_path
   else
-    puts "NO FILE - DOWNLOAD"
+    logger.info "NO FILE - DOWNLOAD"
     FileUtils.mkdir_p  absolute_dir_path unless File.exists?(absolute_dir_path) # Create dir first
     remote_url = VENDOR_URL + "#{buildpack}/#{file_path}.tgz"
     download_file(absolute_file_path, remote_url)
@@ -36,8 +39,8 @@ def get_file(buildpack, file_path)
 end
 
 def download_file(local_path, remote_url)
-  ap "DOWNLOADING FILE"
-  ap remote_url
+  logger.info "DOWNLOADING FILE"
+  logger.info remote_url
   File.open(local_path, "w") do |f|
     IO.copy_stream(open(remote_url), f)
   end

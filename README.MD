@@ -18,6 +18,7 @@ dokku apps:create dokku-vendor
 git clone git@github.com:beydogan/dokku-vendor.git
 cd dokku-vendor
 git remote add dokku dokku@SERVER-IP:dokku-vendor
+git push dokku master
 ```
 
 * Create a persistent storage binded to `/tmp/dokku-vendor`
@@ -36,3 +37,5 @@ dokku storage:mount dokku-vendor /dokku-vendor:/tmp/dokku-vendor
 #server
 dokku config:set my-rails-app --no-restart BUILDPACK_VENDOR_URL=SERVER-IP:PORT/heroku-buildpack-ruby/
 ```
+
+* **All done!** You can just push your app as usual.

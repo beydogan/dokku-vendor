@@ -2,6 +2,8 @@
 
 A simple sinatra app that acts like `BUILDPACK_VENDOR_URL` and downloads requested file to local and serves the file for dokku deploys. Like ruby binaries, bundler etc.
 
+Blog post: https://medium.com/@mbrain0/how-to-speed-up-dokku-deployments-cc2f42015e55
+
 # Why?
 I'm deploying Rails apps to dokku-powered DO servers located in AMS1 and SGP1, it takes more than 5 or 6 minutes each deploy because its downloading Ruby binaries each time, even worse connection times out sometimes. Its faster if you serve them from the same server.
 

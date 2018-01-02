@@ -16,6 +16,9 @@ I'm deploying Rails apps to dokku-powered DO servers located in AMS1 and SGP1, i
 ```bash
 #server
 dokku apps:create dokku-vendor
+```
+
+```
 #local
 git clone git@github.com:beydogan/dokku-vendor.git
 cd dokku-vendor
@@ -38,6 +41,19 @@ dokku storage:mount dokku-vendor /dokku-vendor:/tmp/dokku-vendor
 ```bash
 #server
 dokku config:set my-rails-app --no-restart BUILDPACK_VENDOR_URL=SERVER-IP:PORT/heroku-buildpack-ruby/
+```
+
+
+# Restricting external access(optional)
+
+You can restrict access from outside of the server by following below. We need to create a nginx config for dokku-vendor app to restrict all IPs except docker subnet(`172.17.0.0/16`) 
+
+```bash
+#server
+mkdir /home/dokku/dokku-vendor/nginx.conf.d/
+echo 'allow 172.17.0.0/16; deny all;' > /home/dokku/myapp/nginx.conf.d/ip_access.conf
+chown dokku:dokku /home/dokku/dokku/nginx.conf.d/ip_access.conf
+service nginx reload
 ```
 
 * **All done!** You can just push your app as usual.

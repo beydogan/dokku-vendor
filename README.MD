@@ -51,8 +51,8 @@ You can restrict access from outside of the server by following below. We need t
 ```bash
 #server
 mkdir /home/dokku/dokku-vendor/nginx.conf.d/
-echo 'allow 172.17.0.0/16; deny all;' > /home/dokku/myapp/nginx.conf.d/ip_access.conf
-chown dokku:dokku /home/dokku/dokku/nginx.conf.d/ip_access.conf
+echo 'allow 172.17.0.0/16; deny all;' > /home/dokku/dokku-vendor/nginx.conf.d/ip_access.conf
+chown dokku:dokku /home/dokku/dokku-vendor/nginx.conf.d/ip_access.conf
 service nginx reload
 ```
 
